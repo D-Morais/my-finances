@@ -20,74 +20,44 @@ layout = dbc.Card([
                style={'background-color': 'transparent', 'border-color': 'transparent'}
                ),
     html.Hr(),
+
     dbc.Modal([
-        dbc.ModalHeader(dbc.ModalTitle("Selecionar Perfil")),
+        dbc.ModalHeader(dbc.ModalTitle("Acessar Perfil"), close_button=False),
         dbc.ModalBody([
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardImg(src="/assets/img_hom.png", className='perfil_avatar', top=True),
-                        dbc.CardBody([
-                            html.H4("Perfil Homem", className="card-title"),
-                            html.P(
-                                "Um Card com exemplo do perfil Homem. Texto para preencher o espaço",
-                                className="card-text"
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardImg(src="/assets/img_hom.png", className='perfil_avatar', top=True),
+                    dbc.CardBody([
+                        dbc.Row(dbc.Col(html.H3("Meu Usuário"), width={"size": 6, "offset": 4}), className="mb-4"),
+                        dbc.FormFloating([
+                            dbc.Input(
+                                    type="text", id="username-input", placeholder="Usuário"
                             ),
-                            dbc.Button("Acessar", color="primary"),
-                        ])
-                    ])
-                ], width=6),
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardImg(src="/assets/img_fem2.png", top=True, className='perfil_avatar'),
-                        dbc.CardBody([
-                            html.H4("Perfil Mulher", className="card-title"),
-                            html.P(
-                                "Um Card com exemplo do perfil Mulher. Texto para preencher o espaço",
-                                className="card-text"
+                            dbc.Label("Usuário", html_for="example-email-row", width=7)
+                        ], style={"margin": "20px"}),
+                        dbc.FormFloating([
+                            dbc.Input(
+                                type="password", id="password-input", placeholder="Senha",
                             ),
-                            dbc.Button("Acessar", color="primary"),
-                        ])
+                            dbc.Label("Senha", html_for="example-password-row", width=5)
+                        ], style={"margin": "20px"}),
+                        dbc.Row([
+                            dbc.Col([
+                                dbc.Button("Acessar", id='login-button', color="primary", className="mr-1"),
+                                dbc.Button("Adicionar usuário", id='adc', color="success")
+                            ], style={"display": "flex", "justify-content": "space-between"})
+                        ], style={"margin": "20px"})
                     ])
-                ], width=6),
-            ], style={"padding": "5px"}),
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardImg(src="/assets/img_home.png", top=True, className='perfil_avatar'),
-                        dbc.CardBody([
-                            html.H4("Perfil Casa", className="card-title"),
-                            html.P(
-                                "Um Card com exemplo do perfil Casa. Texto para preencher o espaço",
-                                className="card-text",
-                            ),
-                            dbc.Button("Acessar", color="primary"),
-                        ])
-                    ])
-                ], width=6),
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardImg(src="/assets/img_plus.png", top=True, className='perfil_avatar'),
-                        dbc.CardBody([
-                            html.H4("Adicionar Novo Perfil", className="card-title"),
-                            html.P(
-                                "Esse projeto é um protótipo, o botão de adicionar"
-                                " um novo perfil esta desativado momentaneamente!",
-                                className="card-text",
-                            ),
-                            dbc.Button("Adicionar", color="success"),
-                        ])
-                    ])
-                ], width=6),
-            ], style={"padding": "5px"}),
-        ])
+                ])
+            ], width=6),
+        ], style={"display": "flex", "justify-content": "center"})
     ],
         style={"background-color": "rgba(0, 0, 0, 0.5)"},
         id="modal-perfil",
         size="lg",
-        is_open=False,
-        centered=True,
-        backdrop=True
+        is_open=True,
+        fullscreen=True,
+        backdrop=False
     ),
 
     # ========= Seleção de Perfil ========= #
@@ -143,8 +113,8 @@ layout = dbc.Card([
                     dbc.Col([
                         html.Label("Categoria da receita"),
                         dbc.Select(id="select_receita",
-                                   #options=[{"label": i, "value": i} for i in cat_receita],
-                                   #value=cat_receita[0]
+                                   # options=[{"label": i, "value": i} for i in cat_receita],
+                                   # value=cat_receita[0]
                                    )
                     ], width=4)
                 ], style={"margin-top": "25px"}),
@@ -156,7 +126,7 @@ layout = dbc.Card([
                                 dbc.Col([
                                     html.Legend(
                                         "Adicionar categoria", style={'color': 'green', "text-align": "center"}
-                                                ),
+                                    ),
                                     dbc.Input(type="text", placeholder="Nova categoria...", id="input-add-receita",
                                               value=""),
                                     html.Br(),
@@ -170,7 +140,7 @@ layout = dbc.Card([
                                     html.Legend("Excluir categorias", style={'color': 'red', "text-align": "center"}),
                                     dbc.Checklist(
                                         id="checklist-selected-style-receita",
-                                        #options=[{"label": i, "value": i} for i in cat_receita],
+                                        # options=[{"label": i, "value": i} for i in cat_receita],
                                         value=[],
                                         label_checked_style={"color": "red"},
                                         input_checked_style={"backgroundColor": "#fa7268",
@@ -180,7 +150,7 @@ layout = dbc.Card([
                                                style={"margin-top": "20px"}),
                                 ], width=6, style={"padding": "5px"})
                             ]),
-                        ], title="Adicionar/Remover Categorias",),
+                        ], title="Adicionar/Remover Categorias", ),
                     ], flush=True, start_collapsed=True, id='accordion-receita'),
 
                     html.Div(id="id_teste_receita", style={"padding-top": "20px"}),
@@ -241,7 +211,7 @@ layout = dbc.Card([
                 dbc.Col([
                     html.Label("Categoria da despesa"),
                     dbc.Select(id="select_despesa", options=[0])
-                    #dbc.Select(id="select_despesa", options=[{"label": i, "value": i} for i in cat_despesa])
+                    # dbc.Select(id="select_despesa", options=[{"label": i, "value": i} for i in cat_despesa])
                 ], width=4)
             ], style={"margin-top": "25px"}),
 
@@ -264,7 +234,7 @@ layout = dbc.Card([
                                 html.Legend("Excluir categorias", style={'color': 'red', "text-align": "center"}),
                                 dbc.Checklist(
                                     id="checklist-selected-style-despesa",
-                                    #options=[{"label": i, "value": i} for i in cat_despesa],
+                                    # options=[{"label": i, "value": i} for i in cat_despesa],
                                     value=[],
                                     label_checked_style={"color": "red"},
                                     input_checked_style={"backgroundColor": "#fa7268",

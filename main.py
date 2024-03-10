@@ -29,10 +29,7 @@ app.layout = dbc.Container(children=[
     [Input('url', 'pathname')]
 )
 def render_page(pathname):
-    if pathname == '/':
-        return login.layout
-
-    if pathname == '/dashboards':
+    if pathname == '/' or pathname == '/dashboards':
         return dashboards.layout
 
     if pathname == '/despesas':
